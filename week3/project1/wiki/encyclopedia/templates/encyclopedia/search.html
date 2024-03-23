@@ -1,0 +1,14 @@
+{% extends "encyclopedia/layout.html" %}
+{% block body %}
+    <h1>Suchergebnisse für "{{ q }}"</h1>
+    {% if matches %}
+        <p>Keine genaue Übereinstimmung gefunden, aber hier sind einige ähnliche Einträge:</p>
+        <ul>
+            {% for match in matches %}
+                <li><a href="{% url 'wiki' match %}">{{ match }}</a></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Keine Einträge gefunden, die mit Ihrer Suche übereinstimmen.</p>
+    {% endif %}
+{% endblock body %}

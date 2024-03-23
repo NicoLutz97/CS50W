@@ -1,0 +1,26 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block body %}
+
+    <h1>Create New Page</h1>
+
+    {% if alert == True %}  
+        <div class="alert alert-primary" role="alert">
+            The Wiki for {{ title }} already exists.
+            Please try again.
+        </div>
+    {% endif %}
+
+    <form action="{% url 'new' %}" method="POST">
+        {% csrf_token %}
+        <p><label for="w3review">Content of new wiki:</label></p>
+        <input class="title" placeholder="Title" name="title">
+        <br>
+        <br>
+        <textarea id="content" name="content">Wiki content here ...</textarea>
+        <br>
+        <input type="submit" value="Create wiki">
+    </form>
+
+
+{% endblock body %}

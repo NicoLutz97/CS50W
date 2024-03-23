@@ -1,0 +1,24 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block body %}
+    <h1>{{ title }}</h1>
+
+    {% if wiki %}
+        <form action="{% url 'edit' title %}" method="POST">
+            {% csrf_token %}
+            <p><label for="w3review">Content of existing wiki:</label></p>
+            <br>
+            <br>
+            <textarea id="content" name="content">{{ wiki }}</textarea>
+            <br>
+            <input type="submit" value="Submit Changes">
+        </form>
+    {% else %}
+        <p>No wiki found for {{ title }}!</p>
+    {% endif %}
+{% endblock %}
+
