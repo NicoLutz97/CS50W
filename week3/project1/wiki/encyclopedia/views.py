@@ -19,6 +19,8 @@ def wiki(request, title):
             title = entry
             content = markdown(content)
             break
+        else:
+            content = None
 
     return render(request, "encyclopedia/wiki.html", {
         "wiki": content,

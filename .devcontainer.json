@@ -1,7 +1,0 @@
-{"remoteEnv": {
-    "CS50_GH_USER": "${localEnv:GITHUB_USER}",
-    "CS50_TOKEN": "${localEnv:CS50_TOKEN}",
-    "LANG": "${localEnv:CS50_LANG}",
-    "LOCAL_WORKSPACE_FOLDER": "${localWorkspaceFolder}",
-    "TZ": "${localEnv:CS50_TZ}"
-  }}
