@@ -15,4 +15,4 @@ class Form_New_Listing(forms.Form):
     description = forms.CharField(label="Add description", max_length=255, required=True)
     starting_bid = forms.DecimalField(max_digits=10, decimal_places=2, required=True)
     image = forms.URLField(help_text="Put URL for image of product here")
-    category = forms.ChoiceField(choices=CHOICES_CATEGORY, default="others")
+    category = forms.ChoiceField(choices=CHOICES_CATEGORY, help_text="Choose category")
