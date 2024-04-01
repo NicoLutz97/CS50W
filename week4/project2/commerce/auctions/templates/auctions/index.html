@@ -1,9 +1,10 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
+
     <h2>Active Listings</h2>
 
-    <button id="add_listing">Add new Listing</button>
+    <button id="add_listing" onclick="window.location.href='{% url 'add' %}'">Add new Listing</button>
     
     {% if listings %}
         <ul>
@@ -14,11 +15,7 @@
         <p>No current listings.</p>
     {% endif %}
 
-    <form>
-        {% csrf_token %}
-        {{ form }}
-    </form>
-
     **************************
     TODO
+
 {% endblock %}

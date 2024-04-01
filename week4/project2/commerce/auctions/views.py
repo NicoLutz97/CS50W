@@ -1,7 +1,7 @@
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse
 
 from .models import User, Listing
@@ -9,9 +9,28 @@ from .all_forms import Form_New_Listing
 
 
 def index(request):
-    form = Form_New_Listing()
     return render(request, "auctions/index.html", {
         "listings": Listing.objects.all(),
+    })
+
+
+def add(request):
+    if request.method == "POST":
+        form = Form_New_Listing(request.POST)
+        if form.is_valid():
+            title = form.cleaned_data["title"]
+            description = form.cleaned_data["description"]
+            starting_bid = form.cleaned_data["starting_bid"]
+            image = form.cleaned_data["image"]
+            category = form.cleaned_data["category"]
+
+            new_listing = Listing(title=title, description=description, starting_bid=starting_bid, image=image, category=category)
+            new_listing.save()
+
+            return HttpResponseRedirect(reverse("index"))
+                    
+    form = Form_New_Listing()
+    return render(request, "auctions/add.html", {
         "form": form
     })
 
