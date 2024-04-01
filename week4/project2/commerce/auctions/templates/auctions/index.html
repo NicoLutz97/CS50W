@@ -13,5 +13,12 @@
     {% else %}
         <p>No current listings.</p>
     {% endif %}
+
+    <form>
+        {% csrf_token %}
+        {{ form }}
+    </form>
+
+
     TODO
 {% endblock %}

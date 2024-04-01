@@ -5,11 +5,14 @@ from django.shortcuts import render
 from django.urls import reverse
 
 from .models import User, Listing
+from .forms import Form_New_Listing
 
 
 def index(request):
+    form = Form_New_Listing()
     return render(request, "auctions/index.html", {
-        "listings": Listing.objects.all()
+        "listings": Listing.objects.all(),
+        "form": form
     })
 
 
