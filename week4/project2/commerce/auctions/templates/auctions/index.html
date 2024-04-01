@@ -3,5 +3,15 @@
 {% block body %}
     <h2>Active Listings</h2>
 
+    <button id="add_listing">Add new Listing</button>
+    
+    {% if listings %}
+        <ul>
+            {% for listing in listings %}
+                <li> {{ listing}} </li>
+            {% endfor %}
+    {% else %}
+        <p>No current listings.</p>
+    {% endif %}
     TODO
 {% endblock %}
