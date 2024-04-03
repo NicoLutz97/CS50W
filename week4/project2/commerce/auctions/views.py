@@ -1,11 +1,12 @@
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
 
 from .models import User, Listing
-from .all_forms import Form_New_Listing
+from .all_forms import Form_New_Listing, Form_Whishlist
 
 
 def index(request):
@@ -36,16 +37,43 @@ def add(request):
     })
 
 
+@login_required
 def listing(request, id):
     try:
         l = Listing.objects.get(id=id)
     except Listing.DoesNotExist:
         l = None
 
+    if request.method == "POST":
+        form = Form_Whishlist(request.POST)
+        if form.is_valid():
+            l_id = form.cleaned_data["listing_id"]
+            user = request.user
+
+            is_marked= l in user.whishlist.all()
+
+            if not is_marked:
+                listing = Listing.objects.get(id=l_id)
+                user.whishlist.add(listing)
+            else:
+                listing = Listing.objects.get(id=l_id)
+                user.whishlist.remove(listing)
+            
+            return redirect("listing", id=l_id)
+    
+    form = Form_Whishlist(initial={"listing_id": id})
+
     return render(request, "auctions/listing.html", {
-        "listing": l
+        "listing": l,
+        "form": form
     })
     
+
+@login_required
+def whishlist(request):
+    return render(request, "auctions/whishlist.html", {
+        "whishlist": request.user.whishlist.all() 
+    })
 
         
 

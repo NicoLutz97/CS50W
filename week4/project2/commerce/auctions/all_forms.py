@@ -16,3 +16,7 @@ class Form_New_Listing(forms.Form):
     starting_bid = forms.DecimalField(max_digits=10, decimal_places=2, required=True)
     image = forms.URLField(help_text="Put URL for image of product here", required=False)
     category = forms.ChoiceField(choices=CHOICES_CATEGORY, help_text="Choose category")
+
+
+class Form_Whishlist(forms.Form):
+    listing_id = forms.IntegerField(widget=forms.HiddenInput())

@@ -5,6 +5,10 @@
     {% if listing %}
         <h1>{{listing.title}}</h1>
 
+        {% if listing in request.user.whishlist.all %}
+        <p class="whishlist">In your Whishlist!</p>
+        {% endif %}
+
         <div class="single-listing-container">
             <div class="listing-title">
                 <p>Category: {{ listing.category}} </p>
@@ -19,11 +23,20 @@
             </div>
         </div>
 
-        <p>Add to Watchlist</p>
+        <form method="post">
+            {% csrf_token %}
+            <input type="hidden" name="listing_id" value="{{ listing.id }}">
+            <button type="submit">
+                {% if listing in request.user.whishlist.all %}
+                    Remove from Whishlist
+                {% else %}
+                    Add to Whishlist
+                {% endif %}
+            </button>
+        </form>
     
     {% else %}
-        <p>Listing does not exist. Please check all active listings <a href="{% url 'index'%}">here</a>
-        </p>    
+        <p>Listing does not exist. Please check all active listings <a href="{% url 'index'%}">here</a></p>    
     {% endif %}
 
 

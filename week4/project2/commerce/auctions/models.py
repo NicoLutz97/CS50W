@@ -3,7 +3,7 @@ from django.db import models
 
 
 class User(AbstractUser):
-    pass
+    whishlist = models.ManyToManyField("Listing", blank=True, related_name="marked")
 
 
 class Listing(models.Model):

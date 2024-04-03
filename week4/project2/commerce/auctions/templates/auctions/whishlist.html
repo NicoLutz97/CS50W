@@ -1,0 +1,30 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+
+    <h2>Active Listings</h2>
+
+    <button id="add_listing" onclick="window.location.href='{% url 'add' %}'">Add new Listing</button>
+    
+    <div class="listings-container">
+        {% if whishlist %}
+            {% for listing in whishlist %}
+                <div class="single-listing-container">
+                    <div class="listing-title">
+                        <h4><a href="{% url 'listing' listing.id %}">{{ listing.title }}</a></h4>
+                        {% if listing.image %}
+                            <img src="{{ listing.image }}" alt="{{ listing.title }}" width="100">
+                        {% endif %}
+                    </div>
+                    <div class="listing-details">
+                        <p>{{ listing.description }}</p>
+                        <p>{{ listing.starting_bid}} €</p>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No current listings in your Whishlist!.</p>
+        {% endif %}
+    </div>
+
+{% endblock %}
