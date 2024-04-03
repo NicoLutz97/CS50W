@@ -23,8 +23,9 @@ def add(request):
             starting_bid = form.cleaned_data["starting_bid"]
             image = form.cleaned_data["image"]
             category = form.cleaned_data["category"]
+            current_price = starting_bid
 
-            new_listing = Listing(title=title, description=description, starting_bid=starting_bid, image=image, category=category)
+            new_listing = Listing(title=title, description=description, starting_bid=starting_bid, image=image, category=category, current_price=current_price)
             new_listing.save()
 
             return HttpResponseRedirect(reverse("index"))
@@ -33,6 +34,20 @@ def add(request):
     return render(request, "auctions/add.html", {
         "form": form
     })
+
+
+def listing(request, id):
+    try:
+        l = Listing.objects.get(id=id)
+    except Listing.DoesNotExist:
+        l = None
+
+    return render(request, "auctions/listing.html", {
+        "listing": l
+    })
+    
+
+        
 
 
 def login_view(request):

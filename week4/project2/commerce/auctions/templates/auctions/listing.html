@@ -1,0 +1,30 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+
+    {% if listing %}
+        <h1>{{listing.title}}</h1>
+
+        <div class="single-listing-container">
+            <div class="listing-title">
+                <p>Category: {{ listing.category}} </p>
+                {% if listing.image %}
+                    <img src="{{ listing.image }}" alt="{{ listing.title }}" width="100">
+                {% endif %}
+            </div>
+            <div class="listing-details">
+                <p>{{ listing.description }}</p>
+                <p>Starting from: {{ listing.starting_bid}} €</p>
+                <p>Latest bid: {{ listing.current_price }} €</p>
+            </div>
+        </div>
+
+        <p>Add to Watchlist</p>
+    
+    {% else %}
+        <p>Listing does not exist. Please check all active listings <a href="{% url 'index'%}">here</a>
+        </p>    
+    {% endif %}
+
+
+{% endblock body %}
